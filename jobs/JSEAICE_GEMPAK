@@ -15,7 +15,6 @@ set -xa
 # ###################################
 export PS4='$SECONDS + ' 
 date
-export pid=$$
 export DATA=$DATAROOT/${jobid}
 mkdir -p $DATA
 cd $DATA 
