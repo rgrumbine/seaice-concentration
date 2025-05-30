@@ -1,8 +1,8 @@
 #!/bin/bash 
 #####
 #PBS -l select=1:ncpus=1
-#PBS -l walltime=2:59:00
-#PBS -N aice_2024
+#PBS -l walltime=5:59:00
+#PBS -N aice_4_2025
 #PBS -q "dev"
 #PBS -j oe
 #PBS -A ICE-DEV
@@ -13,9 +13,9 @@
 set -x
 
 export NRT=NO
-export tagm=20240315
-export tag=20240316
-export end=20240318
+export tagm=20250311
+export tag=20250312
+export end=20250401
 
 export HOMEbase=/u/robert.grumbine/rgdev
 export seaice_analysis_ver=v4.5.1
@@ -29,7 +29,7 @@ echo zzz tagm = $tagm
 #Use this to override system in favor of my archive:
 if [ $NRT == 'NO' ] ; then
   export DCOMROOT=/u/robert.grumbine/noscrub/satellites/prod/
-  export RGTAG=prod
+  export RGTAG=dev
   export my_archive=true
 fi
 

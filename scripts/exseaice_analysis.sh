@@ -570,6 +570,8 @@ echo zzzzz completed the L2 and L3 analyses zzzzzzzzzzzzzzzz
 # yesterday's sstgrb file from the gdas directory.
 #-----------------------------------------------------------
 
+#debug RG: exit
+
 qc="false"
 echo zzzzz qc, cominsst, cominsstm1:
 echo $qc $COMINsst $COMINsstm1

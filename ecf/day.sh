@@ -15,7 +15,7 @@ echo initial tag date = $tag
 
 #-----------------------------------------------------------------------------
 
-set -xe
+set -x
 
 # Bring the various environment-sensitive definitions out of J jobs and to here:
 #NCO refers to these as 'job card' variables
