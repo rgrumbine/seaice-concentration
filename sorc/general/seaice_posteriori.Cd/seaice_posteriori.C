@@ -43,13 +43,13 @@ float posteriori(psgrid<unsigned char> &x, metricgrid<unsigned char> &flags, psg
   for (iloc.i = 0; iloc.i < x.xpoints(); iloc.i++) {
     ll = x.locate(iloc);
     floc = flags.locate(ll);
-    if (flags[floc] == 2 || flags[floc] == 224) {
+    if (flags[floc] == 2 || flags[floc] == NO_DATA) {
       x[iloc] = 0;
     }
     else if (flags[floc] == 158 || flags[floc] == 159 || flags[floc] == 160 \
                            || flags[floc] == 161 || flags[floc] == 162 \
                            || flags[floc] == 163 || flags[floc] == 164 ) {
-      if (x[iloc] >= 15 && x[iloc] <= 128) {
+      if (x[iloc] >= MIN_CONC && x[iloc] <= MAX_CONC) {
            area += x.cellarea(iloc); 
            x[iloc] = 1;
            y[iloc] = 0;
@@ -59,7 +59,7 @@ float posteriori(psgrid<unsigned char> &x, metricgrid<unsigned char> &flags, psg
       }
     }
     else if (flags[floc] == 170 || flags[floc] == 171 || flags[floc] == 172) {
-      if (x[iloc] >= 15 && x[iloc] <= 128) {
+      if (x[iloc] >= MIN_CONC && x[iloc] <= MAX_CONC) {
            area += x.cellarea(iloc); 
            x[iloc] = 1;
            y[iloc] = 0;
