@@ -410,28 +410,6 @@ export err=$?;err_chk
 convert sh.$PDY.xpm sh.$PDY.gif
 
 
-# -- ! Moved up
-#-----------------------------------------------------------
-#Copy the base L2 and L3 grids to the output location
-#-----------------------------------------------------------
-#if [ $SENDCOM = "YES" ]
-#then
-#  # Raw files -- L3 -- on per-instrument basis
-#  #L2 ice files -- conc + Tb
-#  cp l2out.* ${COMOUT}
-#
-#  #L3 with tb etc.
-#  cp namsr2.${PDY}_hr ${COMOUT}/seaice.t${cyc}z.namsr2.${PDY}_hr
-#  cp namsr2.${PDY}_lr ${COMOUT}/seaice.t${cyc}z.namsr2.${PDY}_lr
-#  cp samsr2.${PDY}_hr ${COMOUT}/seaice.t${cyc}z.samsr2.${PDY}_hr
-#  cp samsr2.${PDY}_lr ${COMOUT}/seaice.t${cyc}z.samsr2.${PDY}_lr
-#  #L3 ice conc only
-#  cp amsr2north6.${PDY}   ${COMOUT}/seaice.t${cyc}z.amsr2north6.${PDY}
-#  cp amsr2south6.${PDY}   ${COMOUT}/seaice.t${cyc}z.amsr2south6.${PDY}
-#  cp nmap.${PDY}.f1[78] ${COMOUT}
-#  cp smap.${PDY}.f1[78] ${COMOUT}
-#fi
-
 #-----------------------------------------------------------
 #Copy the collated L3 grids to the output location
 #-----------------------------------------------------------
