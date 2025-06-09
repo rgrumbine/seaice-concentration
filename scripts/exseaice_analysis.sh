@@ -56,7 +56,6 @@ export FSLAND=${FSLAND:-${FIXseaice_analysis}/seaice_sland.map}
 export FSLAND127=${FSLAND127:-${FIXseaice_analysis}/seaice_sland127.map}
 export FGLAND5MIN=${FGLAND5MIN:-${FIXseaice_analysis}/seaice_gland5min}
 export FPOSTERIORI5=${FPOSTERIORI5:-${FIXseaice_analysis}/seaice_posteriori_5min}
-export FPOSTERIORI30=${FPOSTERIORI30:-${FIXseaice_analysis}/seaice_posteriori_30min}
 export FDIST=${FDIST:-${FIXseaice_analysis}/seaice_alldist.bin}
 export FGSHHS=${FGSHHS:-${FIXseaice_analysis}/seaice_lake_isleout}
 
@@ -357,7 +356,6 @@ export err=$?;err_chk
 # New 27 July 2011
 #
 cp $FPOSTERIORI5  . 
-cp $FPOSTERIORI30 . 
 export pgm=seaice_posteriori_5min.x
 startmsg
 $EXECseaice_analysis/seaice_posteriori_5min.x seaice_posteriori_5min \

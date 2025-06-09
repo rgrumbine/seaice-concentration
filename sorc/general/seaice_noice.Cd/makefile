@@ -7,5 +7,6 @@ all : noice
 
 noice.o : noice.C
 	$(CPP) $(CPPOPTS)  -DGRIDTYPE=global_12th  $<
+
 noice : noice.o
 	$(CPPLD) $(CPPLDFLAGS) $< -o $@ $(MMAB_LIBF4)
