@@ -18,8 +18,8 @@ set -x
 
 echo zzz entered exseaice_viirs
 
-export PYTHONPATH=$PYTHONPATH:$PACKAGEROOT/seaice_analysis.v4.5.1/sorc/mmablib/py
-if [ ! -d $PACKAGEROOT/seaice_analysis.v4.5.1/sorc/mmablib/py ] ; then
+export PYTHONPATH=$PYTHONPATH:$PACKAGEROOT/seaice_analysis.v4.5.2/sorc/mmablib/py
+if [ ! -d $PACKAGEROOT/seaice_analysis.v4.5.2/sorc/mmablib/py ] ; then
   echo could not find mmablib/py
   exit 1
 fi
