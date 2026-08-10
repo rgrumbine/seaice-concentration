@@ -56,3 +56,5 @@ amsr2/seaice_amsrbufr.fd/seaice_amsrbufr \
 viirs/seaice_viirscomp.Cd/seaice_viirscomp \
 l1b_to_l2/ssmisu_tol2 \
 l2_to_l3/ssmisu_tol3 \
+amsr3/seaice_iceamsr3.Cd/seaice_iceamsr3 \
+amsr3/seaice_amsr3bufr.fd/seaice_amsr3bufr 

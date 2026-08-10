@@ -36,7 +36,7 @@ CPPLD=CC
 #gnu:
 CPPOPTS= -c -ansi -Wall -O2 -DLINUX -DCPLUS -I $(MMAB_INC) $(NETCDF_INCLUDE)
 #intel:
-CPPOPTS= -c -Wall -O2 -DLINUX -DCPLUS -I $(MMAB_INC) $(NETCDF_INCLUDE) -std=c++11
+CPPOPTS= -c -Wall -O2 -DLINUX -DCPLUS -I $(MMAB_INC) $(NETCDF_INCLUDE) -std=c++17
 CPPLDFLAGS=$(MMAB_LIBF4)
 
 #Building elements

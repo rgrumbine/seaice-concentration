@@ -48,6 +48,8 @@ export mmablib_ver=${MMAB_VER}
 
 if [ ! -d mmablib ] ; then
   git clone --recursive https://github.com/rgrumbine/mmablib
+else
+  git submodule update --remote
 fi
 
 if [ ! -f mmablib/libombf_4.a ] ; then
@@ -59,7 +61,7 @@ fi
 #set -xe
 set -x
 
-for d in general amsr2 ssmis avhrr l1b_to_l2 l2_to_l3 viirs
+for d in general amsr2 amsr3 ssmis avhrr l1b_to_l2 l2_to_l3 viirs
 do
   cp makeall.mk $d
   cd $d
