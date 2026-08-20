@@ -26,7 +26,7 @@ if [ ! -d $PACKAGEROOT/seaice_analysis.v4.5.2/sorc/mmablib/py ] ; then
 fi
 echo zzz prepared python
 
-$USHseaice_analysis/composite.py $DCOMROOT/$day/wgrdbul/IST/JRR-IceConcentration*_${inst}_s${day}${hh}*.nc \
+$USHseaice_analysis/viirs_composite.py $DCOMROOT/$day/wgrdbul/IST/JRR-IceConcentration*_${inst}_s${day}${hh}*.nc \
     > viirs.$inst.$cyc.${day}$hh 
 # Handle no file case 
 if [ ! -f viirs.$inst.$cyc.${day}$hh ] ; then

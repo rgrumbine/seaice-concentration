@@ -199,7 +199,8 @@ int main(int argc, char *argv[]) {
 // Now sweep the grid and wherever there are valid obs, compute ice concentration:
   for (loc.j = 0; loc.j < ngrid.ypoints(); loc.j++) {
   for (loc.i = 0; loc.i < ngrid.xpoints(); loc.i++) {
-     if (nh_hr_accum[loc].count == 0 && nh_lr_accum[loc].count == 0) {
+     //if (nh_hr_accum[loc].count == 0 && nh_lr_accum[loc].count == 0) {
+     if (nh_lr_accum[loc].count == 0) {
        ngrid[loc] = NO_DATA;
      }
      else if (nh_lr_accum[loc].lr[AMSR3_T19V].spot.alfr == 0 &&
@@ -224,13 +225,15 @@ int main(int argc, char *argv[]) {
                            nh_lr_accum[loc].lr[AMSR3_T89V].spot.tmbr, 
                            nh_lr_accum[loc].lr[AMSR3_T89H].spot.tmbr, arctic, (float) ll.lat);
      }
+     //debug: printf("ngrid sweep %d %d %f\n",loc.i, loc.j, ngrid[loc]);
   }
   }
   
 // Southern hemisphere:
   for (loc.j = 0; loc.j < sgrid.ypoints(); loc.j++) {
   for (loc.i = 0; loc.i < sgrid.xpoints(); loc.i++) {
-     if (sh_hr_accum[loc].count == 0 && sh_lr_accum[loc].count == 0) {
+     //if (sh_hr_accum[loc].count == 0 && sh_lr_accum[loc].count == 0) {
+     if (sh_lr_accum[loc].count == 0) {
        sgrid[loc] = NO_DATA;
      }
      else if (sh_lr_accum[loc].lr[AMSR3_T19V].spot.alfr == 0 &&
@@ -255,6 +258,7 @@ int main(int argc, char *argv[]) {
                            sh_lr_accum[loc].lr[AMSR3_T89V].spot.tmbr, 
                            sh_lr_accum[loc].lr[AMSR3_T89H].spot.tmbr, arctic, (float) ll.lat);
      }
+     //debug: printf("sgrid sweep %d %d %f\n",loc.i, loc.j, sgrid[loc]);
   }
   }
 
@@ -269,10 +273,10 @@ int main(int argc, char *argv[]) {
 // argv7 = name for sh iceconc field
 // argv8 = gshhs bounding curves
 // argv9 = distance to land file
-  sprintf(fname,"%s_hr",argv[4]);
-  fout = fopen(fname,"w");
-  nh_hr_accum.binout(fout);
-  fclose(fout);
+  //sprintf(fname,"%s_hr",argv[4]);
+  //fout = fopen(fname,"w");
+  //nh_hr_accum.binout(fout);
+  //fclose(fout);
   sprintf(fname,"%s_lr",argv[4]);
   fout = fopen(fname,"w");
   nh_lr_accum.binout(fout);
@@ -283,12 +287,12 @@ int main(int argc, char *argv[]) {
   ngridchar.binout(fout);
   fclose(fout);
   sprintf(fname, "n.xpm");
-  ngrid.xpm(fname,7,gg);
+  ngrid.xpm(fname,12,gg);
   
-  sprintf(fname,"%s_hr",argv[5]);
-  fout = fopen(fname,"w");
-  sh_hr_accum.binout(fout);
-  fclose(fout);
+  //sprintf(fname,"%s_hr",argv[5]);
+  //fout = fopen(fname,"w");
+  //sh_hr_accum.binout(fout);
+  //fclose(fout);
   sprintf(fname,"%s_lr",argv[5]);
   fout = fopen(fname,"w");
   sh_lr_accum.binout(fout);
@@ -299,7 +303,7 @@ int main(int argc, char *argv[]) {
   sgridchar.binout(fout);
   fclose(fout);
   sprintf(fname,"s.xpm");
-  sgrid.xpm(fname,7,gg);
+  sgrid.xpm(fname,12,gg);
 
   return 0;
 }
@@ -379,8 +383,7 @@ void lravg(grid2<amsr3_lr_accum> &nh_lr_accum) {
   for (loc.j = 0; loc.j < nh_lr_accum.ypoints(); loc.j++) {
   for (loc.i = 0; loc.i < nh_lr_accum.xpoints(); loc.i++) {
     if (nh_lr_accum[loc].count != 0) {
-      // debug: 
-      printf("lravg count %d %d %d\n",nh_lr_accum[loc].count, loc.i, loc.j);
+      // debug: printf("lravg count %d %d %d\n",nh_lr_accum[loc].count, loc.i, loc.j);
       for (int i = 0; i < 19; i++) {
         nh_lr_accum[loc].lr[i].spot.sccf /= nh_lr_accum[loc].count ;
         nh_lr_accum[loc].lr[i].spot.alfr /= nh_lr_accum[loc].count ;

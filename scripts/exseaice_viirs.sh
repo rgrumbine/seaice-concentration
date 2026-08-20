@@ -11,7 +11,6 @@
 #                                   = COMOUTbase.$daym1 for 18z cycle
 #
 #
-
 # Environment to run: COMOUT, DCOMROOT, PDY, PDYm1, PDYm2
 #                     USHseaice_analysis
 set -x
@@ -37,7 +36,6 @@ elif [ $cyc == '18' ] ; then
   hours='04 03 02 01 00' #handle 23 separately, PDYm2
 else
   err_exit exseaice_viirs: illegal cycle $cyc, exiting
-#  exit 1
 fi
 
 
@@ -48,13 +46,6 @@ do
   do
      echo " $USHseaice_analysis/seaice_viirs.sh ${day} ${hh} ${inst} " >> poe.viirs
 
-#    $USHseaice_analysis/composite.py \
-#    $DCOMROOT/$day/wgrdbul/IST/JRR-IceConcentration*_${inst}_s${day}${hh}*.nc \
-#    > viirs.$inst.$cyc.${day}$hh 
-#    # Handle no file case 
-#    if [ ! -f viirs.$inst.$cyc.${day}$hh ] ; then
-#      touch viirs.$inst.$cyc.${day}$hh
-#    fi
   done
 done
 
@@ -68,21 +59,13 @@ if [ $cyc == '18' ] ; then
     do
       echo " $USHseaice_analysis/seaice_viirs.sh ${day} ${hh} ${inst} " >> poe.viirs
 
-#      $USHseaice_analysis/composite.py \
-#      $DCOMROOT/$day/wgrdbul/IST/JRR-IceConcentration*_${inst}_s${day}${hh}*.nc \
-#      > viirs.$inst.$cyc.${day}$hh 
-#      # Handle no file case 
-#      if [ ! -f viirs.$inst.$cyc.${day}$hh ] ; then
-#        touch viirs.$inst.$cyc.${day}$hh
-#      fi
     done
   done
 fi
 
-#From Simon Hsio 8 April 2026
+#From Simon Hsiao 8 April 2026
 chmod 775 poe.viirs
 ntask=`cat poe.viirs |wc -l`;
 mpiexec -n $ntask -ppn $ntask --cpu-bind verbose,core cfp ./poe.viirs
 export err=$?; err_chk
 
-#mv viirs.*.$cyc.*?? $COMOUT

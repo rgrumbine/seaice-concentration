@@ -258,10 +258,11 @@ float nasa_team2(float h6p9, float v6p9, float h7p3, float v7p3, float h11, floa
 //2017        if ( notbogus(h6p9i, v6p9i, h7p3i, v7p3i, h11i, v11i, h19i) &&
 //2017            (weather(v19i, h19i, v24i, v37i, h37i, v89i, h89i) != WEATHER) ) {
 // New (7/2025) filter using low frequency from ML decision tree
+        printf("before lfweather %f %f %f %f %f %f\n",(float) h6p9i, (float) v6p9i, (float) h7p3i, (float) v7p3i, (float) h11i, (float) v11i);
         if (lfweather(h6p9i, v6p9i, h7p3i, v7p3i, h11i, v11i) != 0 &&
             lfweather(h6p9i, v6p9i, h7p3i, v7p3i, h11i, v11i) != WEATHER) {
-
         /*** if passed the weather filters ***/
+	  printf("past weather filter\n");
           pr19=(v19i-h19i)/(v19i+h19i);
           pr89=(v89i-h89i)/(v89i+h89i);
 
@@ -401,6 +402,7 @@ float lfweather(double h6p9i, double v6p9i, double h7p3i, double v7p3i, double h
       x = WEATHER;
   }
 
-
+  // debug: if (x != 0) { x = 5; }
+  printf("lfweather %f\n",x);
   return x;
 }
