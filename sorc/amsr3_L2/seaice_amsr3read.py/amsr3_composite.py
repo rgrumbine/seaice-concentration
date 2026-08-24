@@ -21,49 +21,54 @@ from latpt import *
 from grid import *
 
 #---------------------------------------------------------------------------
+#debug: print("number of input files ", len(sys.argv[]), flush=True)
+
 #For output grid:
 target_grid = global_5min()
 csumx  = np.zeros((target_grid.ny,target_grid.nx))
 csumx2 = np.zeros((target_grid.ny,target_grid.nx))
 gcount = np.zeros((target_grid.ny,target_grid.nx),dtype=int)
-#debug: print("target grid dimensions",target_grid.ny,target_grid.nx, file=sys.stderr)
+#debug: 
+print("target grid dimensions",target_grid.ny,target_grid.nx, file=sys.stderr)
 
 nfiles = 0
 totnp = 0
 
 for fname in sys.argv[1:]:
   nfiles += 1
-  #debug: 
-  print(nfiles, fname,flush=True)
-  continue
+  #debug: print(nfiles, fname,flush=True)
+  #debug: continue
 
   try:
-    viirs = nc.Dataset(fname, 'r')
+    amsr3 = nc.Dataset(fname, 'r')
   except:
     print("Could not open fname: ",fname,flush=True, file=sys.stderr)
     continue
 
-  #debug: print("dimensions ",len(viirs.dimensions['Columns']), len(viirs.dimensions['Rows']) )
+  #debug: print("dimensions ",len(amsr3.dimensions['Columns']), len(amsr3.dimensions['Rows']) )
 
-  #This is a masked array, determined by fill value
-  conc = viirs.variables['IceConc'][:,:]
+  conc = amsr3.variables['NASA_Team_2_Ice_Concentration'][:,:]
   #debug: print(nfiles,"conc ",conc.max(), conc.min(),flush=True, file=sys.stderr )
   indices = conc.nonzero()
-
+  #debug: print('length of indices:', f"{len(indices[0]):d}" , flush=True)
+  #debug: continue
   npts = len(indices[0])
   if (npts == 0):
       continue
   totnp += len(indices[0])
 
   #Geography:
-  lats = viirs.variables['Latitude'][:,:]
-  lons = viirs.variables['Longitude'][:,:]
-
+  lats = amsr3.variables['Latitude'][:,:]
+  lons = amsr3.variables['Longitude'][:,:]
+  flag = amsr3.variables['Flags'][:,:]
 
   #Start Working:
   for k in range(0,len(indices[0])):
       i = indices[1][k]
       j = indices[0][k]
+      if (flag[j,i] != 0):
+          #debug: print("nonzero flag = ",flag[j,i])
+          continue
       #verbose: print(lons[j,i], lats[j,i], conc[j,i], " pt")
       # for gridding
       iloc = target_grid.inv_locate(lats[j,i],lons[j,i])
@@ -78,7 +83,7 @@ for fname in sys.argv[1:]:
 
   #debug: if (nfiles >= 100): break
 
-print("total number of ice conc observations: ",totnp, file=sys.stderr)
+print("total number of files, ice conc observations: ",nfiles, totnp, file=sys.stderr)
 
 z = latpt()
 cellcount = 0
