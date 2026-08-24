@@ -1,0 +1,71 @@
+#!/bin/sh
+
+set -xae
+# #### 05/18/99 #############################
+# SETUP SEAICE CONCENTRATION ANALYSIS PROCESSING CONTROL SHELL VARIABLES
+# ###########################################
+export PS4='$SECONDS + '
+date
+echo cyc is ${cyc:?}
+echo envir is ${envir:?}
+echo seaice_analysis_ver is ${seaice_analysis_ver:?} 
+
+export DATA=$DATAROOT/${jobid}
+mkdir -p $DATA
+cd $DATA
+
+####################################
+# Determine Job Output Name on System
+####################################
+export pgmout="OUTPUT.$$"
+
+export cycle=t${cyc}z
+export NET=${NET:-seaice_analysis}
+
+export SENDEMAIL=${SENDEMAIL:-YES}
+#################################################
+# Specify job's execution areas (directory paths)
+#################################################
+export EXECseaice_analysis=${EXECseaice_analysis:-$HOMEseaice_analysis/exec}
+export FIXseaice_analysis=${FIXseaice_analysis:-$HOMEseaice_analysis/fix}
+export PARMseaice_analysis=${PARMseaice_analysis:-$HOMEseaice_analysis/parm}
+export USHseaice_analysis=${USHseaice_analysis:-$HOMEseaice_analysis/ush}
+
+#########################################
+# Run setpdy and initialize PDY variables
+#########################################
+setpdy.sh
+. ./PDY
+
+echo zzzzzzzzzzzzzzzzzzz Beginning real work of seaice_analysis script zzzzzzzzzzzzzzzzzzzzzzzzz
+export RUN=${RUN:-seaice_analysis}
+
+export COMIN=${COMIN:-$(compath.py ${envir}/com/${NET}/${seaice_analysis_ver})/${RUN}.${PDY}}
+export COMINm1=${COMINm1:-$(compath.py ${envir}/com/${NET}/${seaice_analysis_ver})/${RUN}.${PDYm1}}
+export COMOUT=${COMOUT:-$(compath.py -o ${NET}/${seaice_analysis_ver})/${RUN}.${PDY}}
+
+export DCOM=${DCOM:-$DCOMROOT/$PDY}
+export DCOMm1=${DCOMm1:-$DCOMROOT/$PDYm1}
+
+mkdir -p $COMOUT 
+if [ $? -ne 0 ] ; then
+  echo zzzzzz some error in creating comout : $COMOUT 
+  exit 1
+fi
+env
+
+#####################################
+# Execute the script
+echo zzz J calling scripts/exseaice_amsr3l2.sh
+$HOMEseaice_analysis/scripts/exseaice_amsr3l2.sh >> $pgmout
+export err=$?
+err_chk
+#####################################
+
+cat $pgmout
+
+if [ "$KEEPDATA" != "YES" ] ; then
+  rm -rf $DATA
+fi
+
+date

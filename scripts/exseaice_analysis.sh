@@ -236,7 +236,7 @@ fi
 # 249 = F16, 286 = F18
 #----------------------------------------------------------
 
-#Process SSMI data to analyst (L3) grids
+#Process SSMI-S data to analyst (L3) grids
 
 cp $FIXseaice_analysis/seaice_TBthark.tab.ssmisu .
 cp $FIXseaice_analysis/seaice_TBowark.tab.ssmisu .

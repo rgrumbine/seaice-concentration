@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
     }
 
     while (!feof(fin)) {
-      fscanf(fin,"%d %d %f %f %f %f %f %f %f\n", &ti, &tj, &tlat, &tlon, &tconc, &tsigmaconc, &tcount);
+      fscanf(fin,"%d %d %f %f %f %f %f\n", &ti, &tj, &tlat, &tlon, &tconc, &tsigmaconc, &tcount);
       loc.i = ti;
       loc.j = tj;
       if (tconc > 100 || tcount == 0) {
